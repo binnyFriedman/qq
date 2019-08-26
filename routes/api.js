@@ -4,30 +4,25 @@ const vertex = require("vertex360")({ site_id: process.env.TURBO_APP_ID });
 const router = vertex.router();
 
 const Service = require("../models/Service");
-const User = require("../models/User");
 
 router.get("/services", (req, res) => {
   Service.find()
     .then(services => {
       res.json({
         confirmation: "succses",
-        data: services,
+        data: services
       });
     })
     .catch(err => {
       res.json({
         confirmation: "fail",
-        message: err.message,
+        message: err.message
       });
     });
 });
 
 async function findService(serviceName) {
   return await Service.findOne({ name: serviceName });
-}
-
-async function findUser(userEmail) {
-  return await User.findOne({ email: userEmail });
 }
 
 // this is our create methid
@@ -56,38 +51,21 @@ router.post("/service/add", (req, res) => {
           console.log(responce);
           res.json({
             succsess: true,
-            data: responce,
+            data: responce
           });
         })
         .catch(err => {
           console.log(err.message);
           res.json({
             succsess: false,
-            error: err.message,
+            error: err.message
           });
         });
     } else {
       res.json({
         succsess: false,
         message: "Service in this name already exists",
-        data: service,
-      });
-    }
-  });
-});
-
-router.get("/user/get", (req, res) => {
-  findUser(req.body.email).then(user => {
-    if (!user) {
-      res.json({
-        auth: false,
-        message:
-          "Sorry we did not find your email registered please contact dev team to solve this",
-      });
-    } else {
-      res.json({
-        auth: true,
-        message: "Welcome back" + user.name,
+        data: service
       });
     }
   });
