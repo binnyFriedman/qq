@@ -36,15 +36,14 @@ passport.use(
     async (email, password, done) => {
       //find the user with email
       try {
-        const user = await User.findOne({ "local.email": email }); //very importent to await !!!
+        const user = await User.findOne({ email }); //very importent to await !!!
 
         //case not handle if
-        if (!user) {
+        if (!user || user.method !== "local") {
           return done(null, false);
         }
-        //check if password is correct
-        // console.log(user);
 
+        //check if password is correct
         const isMatch = await user.isValidPassword(password);
 
         //case not handle if
@@ -58,8 +57,8 @@ passport.use(
     }
   )
 );
-//google oauth strategy
 
+//google oauth strategy
 passport.use(
   "googleToken",
   new GoogleToken(
@@ -69,15 +68,20 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const existingUser = await User.findOne({ "google.id": profile.id });
+        //try to find a user by email
+        const existingUser = await User.findOne({ email: profile.emails[0].value });
         if (existingUser) {
+          //if user exists
+          // if(existingUser.method !== 'google'){
+
+          // }
           return done(null, existingUser);
         }
         const newUser = new User({
           method: "google",
+          email: profile.emails[0].value,
           google: {
-            id: profile.id,
-            email: profile.emails[0].value
+            id: profile.id
           }
         });
         await newUser.save();

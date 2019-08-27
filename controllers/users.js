@@ -1,8 +1,8 @@
 const JWT = require("jsonwebtoken");
 const User = require("../models/User");
 
-async function findUser(userEmail) {
-  return await User.findOne({ "local.email": userEmail });
+async function findUser(email) {
+  return await User.findOne({ email });
 }
 
 signToken = user => {
@@ -26,18 +26,23 @@ module.exports = {
         //email does not exist yet in the system
         const userI = new User({
           method: "local",
+          email: email,
           local: {
-            email: email,
             password: password
           }
         });
-        userI.save().then(() => {
-          const token = signToken(userI);
-          res.status(200).json({ token });
-        });
+        userI
+          .save()
+          .then(() => {
+            const token = signToken(userI);
+            res.status(200).json({ token });
+          })
+          .catch(error => {
+            res.status(403).json({ error: error });
+          });
       } else {
         return res.json({
-          message: "this email is allready taken, please login"
+          message: "this email is allready taken, please login using " + user.method
         });
       }
     });

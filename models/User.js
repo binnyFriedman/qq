@@ -9,11 +9,14 @@ const UserSchema = new Schema({
     enum: ["local", "google", "facebook"],
     required: true
   },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+    trim: true,
+    lowercase: true
+  },
   local: {
-    email: {
-      type: String,
-      trim: true
-    },
     password: {
       type: String
     }
@@ -21,19 +24,11 @@ const UserSchema = new Schema({
   google: {
     id: {
       type: String
-    },
-    email: {
-      type: String,
-      lowercase: true
     }
   },
   facebook: {
     id: {
       type: String
-    },
-    email: {
-      type: String,
-      lowercase: true
     }
   }
   // name: {
