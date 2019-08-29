@@ -1,6 +1,7 @@
 // Full Documentation - https://www.turbo360.co/docs
 const vertex = require("vertex360")({ site_id: process.env.TURBO_APP_ID });
 const morgan = require("morgan");
+const cors = require("cors");
 /*
 	Apps can also be initialized with config options as shown in the commented out example below. Options
 	include setting views directory, static assets directory, and database settings. To see default config
@@ -24,7 +25,7 @@ const config = {
 };
 
 const app = vertex.app(config); // initialize app with config options
-
+app.use(cors());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

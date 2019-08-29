@@ -11,7 +11,7 @@ const passportJWT = passport.authenticate("jwt", { session: false });
 
 const passportGoogle = passport.authenticate("googleToken", { session: false });
 
-router.route("/sighup").post(validateBody(schemas.authSchema), UsersController.signup);
+router.route("/signup").post(validateBody(schemas.authSchema), UsersController.signup);
 
 router.route("/signin").post(validateBody(schemas.authSchema), passportSignin, UsersController.signin);
 
