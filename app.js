@@ -43,12 +43,12 @@ const index = require("./routes/index");
 const api = require("./routes/api");
 const users = require("./routes/users");
 const qoutes = require("./routes/quotes");
+const services = require("./routes/services");
 
 // set routes
 app.use(morgan("dev"));
 app.use("/", index);
 app.use("/users", users);
 app.use("/qoutes", qoutes);
-app.use("/api", api); // sample API Routes
-
+app.use("/services", services);
 module.exports = app;

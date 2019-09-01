@@ -1,4 +1,3 @@
-const JWT = require("jsonwebtoken");
 const Qoute = require("../models/Qoute");
 
 module.exports = {

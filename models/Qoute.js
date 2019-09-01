@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+//Qoute Stucture
 const QouteSchema = new Schema({
   Reciever: {
     Name: {
