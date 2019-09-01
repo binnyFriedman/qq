@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// this will be our data base's data structure
 const QouteSchema = new Schema({
-  reciever: {
+  Reciever: {
     Name: {
       type: String,
       trim: true,
@@ -22,8 +21,18 @@ const QouteSchema = new Schema({
       },
     },
   },
+  Sender: {
+    name: {
+      type: String,
+      required: [true, "Sender Name is required"],
+    },
+    email: {
+      type: String,
+      required: [true, "Sender Email is required"],
+    },
+  },
 
-  services: [
+  Services: [
     {
       organic: {
         type: Boolean,
