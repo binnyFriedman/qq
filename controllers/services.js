@@ -5,22 +5,22 @@ async function findService(serviceName) {
 }
 
 module.exports = {
-  getServices: async (res, req, next) => {
+  getServices: async (req, res, next) => {
     Service.find()
       .then(services => {
-        res.json({
-          confirmation: "succses",
-          data: services,
-        });
+        console.log(services);
+
+        res.status(200).json({ services });
       })
       .catch(err => {
-        res.json({
+        res.status(404).json({
           confirmation: "fail",
           message: err.message,
         });
       });
   },
-  getService: async (res, req, next) => {
+
+  getService: async (req, res, next) => {
     const id = req.body.id;
     const service = await Service.findById(id);
     if (!service) {
