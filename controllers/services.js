@@ -8,8 +8,6 @@ module.exports = {
   getServices: async (req, res, next) => {
     Service.find()
       .then(services => {
-        console.log(services);
-
         res.status(200).json({ services });
       })
       .catch(err => {

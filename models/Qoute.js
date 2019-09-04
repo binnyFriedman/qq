@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 //Qoute Stucture
 const QouteSchema = new Schema({
   Reciever: {
-    Name: {
+    name: {
       type: String,
       trim: true,
       default: "",
@@ -23,75 +23,11 @@ const QouteSchema = new Schema({
     },
   },
   Sender: {
-    name: {
-      type: String,
-      required: [true, "Sender Name is required"],
-    },
-    email: {
-      type: String,
-      required: [true, "Sender Email is required"],
-    },
+    type: Schema.Types.ObjectId,
+    ref: "User",
   },
 
-  Services: [
-    {
-      organic: {
-        type: Boolean,
-        default: false,
-      },
-      campaign: {
-        trim: true,
-        type: Boolean,
-        default: false,
-      },
-      header: {
-        type: String,
-        default: "",
-        trim: true,
-        required: [true, "Content header is required"],
-      },
-      body: [
-        {
-          value: {
-            type: String,
-            trim: true,
-          },
-        },
-      ],
-    },
-  ],
-  priceBlock: {
-    notes: [
-      {
-        type: String,
-        trim: true,
-        default: "",
-      },
-    ],
-
-    priceTable: [
-      {
-        header: {
-          trim: true,
-          type: String,
-          default: "",
-        },
-        price: {
-          type: Number,
-          default: 0,
-        },
-        currency: {
-          type: String,
-          trim: true,
-          default: "",
-        },
-        monthly: {
-          type: Boolean,
-          default: true,
-        },
-      },
-    ],
-  },
+  Services: [{ type: Schema.Types.ObjectId, ref: "Service" }],
 });
 
 // export the new Schema so we could modify it using Node.js

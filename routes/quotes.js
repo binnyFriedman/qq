@@ -12,5 +12,6 @@ router.route("/").get(passportJWT, QoutsController.getQoutes);
 
 router.route("/single/:id").get(passportJWT, QoutsController.getSingleQoute);
 router.route("/delete/:id").get(passportJWT, QoutsController.deleteQoute);
+router.route("/create/").post(passportJWT, QoutsController.createQoute);
 
 module.exports = router;

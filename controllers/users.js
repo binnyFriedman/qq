@@ -11,9 +11,9 @@ signToken = user => {
       iss: "binnyAtNekuda",
       sub: user.id,
       iat: new Date().getTime(),
-      exp: new Date().setDate(new Date().getDate() + 1)
+      exp: new Date().setDate(new Date().getDate() + 1),
     },
-    process.env.JWT_SECRET
+    process.env.JWT_SECRET,
   );
 };
 
@@ -28,8 +28,9 @@ module.exports = {
           method: "local",
           email: email,
           local: {
-            password: password
-          }
+            password: password,
+          },
+          displayName: "",
         });
         userI
           .save()
@@ -42,7 +43,8 @@ module.exports = {
           });
       } else {
         return res.json({
-          message: "this email is allready taken, please login using " + user.method
+          message:
+            "this email is allready taken, please login using " + user.method,
         });
       }
     });
@@ -68,14 +70,36 @@ module.exports = {
       if (!user) {
         res.json({
           auth: false,
-          message: "Sorry we did not find your email registered please contact dev team to solve this"
+          message:
+            "Sorry we did not find your email registered please contact dev team to solve this",
         });
       } else {
         res.json({
           auth: true,
-          message: "Welcome back" + user.name
+          message: "Welcome back" + user.name,
         });
       }
     });
-  }
+  },
+  byid: async (req, res, next) => {
+    res.status(200).json({ user: req.user });
+  },
+  updateuser: async (req, res, next) => {
+    // let where = Object.keys(req.body);
+    // console.log(where);
+    req.user.toObject();
+    req.user.displayName = req.body.displayName;
+    let updatedUser = await req.user.save();
+    // const updatedUser = await User.findByIdAndUpdate(
+    //   req.user._id,
+    //   { new: true },
+    //   req.body,
+    // );
+    if (!updatedUser) {
+      console.log(err);
+      res.status(500).json({ err });
+    }
+    console.log(updatedUser);
+    res.status(200).json({ message: "user updated successfully" });
+  },
 };

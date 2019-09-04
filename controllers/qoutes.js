@@ -41,4 +41,24 @@ module.exports = {
         return res.status(402).json({ error: error });
       });
   },
+  createQoute: async (req, res, next) => {
+    console.log(req.body);
+
+    const newQoute = new Qoute({
+      Reciever: {
+        name: req.body.Reciever.name,
+        email: req.body.Reciever.email,
+      },
+      Sender: req.user._id,
+      Services: [...req.body.services],
+    });
+    newQoute
+      .save()
+      .then(qoute => {
+        res.status(200).json({ qoute });
+      })
+      .catch(err => {
+        res.status(500).json({ err });
+      });
+  },
 };

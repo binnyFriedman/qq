@@ -10,7 +10,7 @@ passport.use(
   new JWTstrategy(
     {
       jwtFromRequest: ExtractJwt.fromHeader("authorization"),
-      secretOrKey: process.env.JWT_SECRET
+      secretOrKey: process.env.JWT_SECRET,
     },
     async (payload, done) => {
       try {
@@ -24,14 +24,14 @@ passport.use(
       } catch (error) {
         done(error, false);
       }
-    }
-  )
+    },
+  ),
 );
 //local strategy
 passport.use(
   new LocalStrategy(
     {
-      usernameField: "email"
+      usernameField: "email",
     },
     async (email, password, done) => {
       //find the user with email
@@ -54,8 +54,8 @@ passport.use(
       } catch (error) {
         done(error, false);
       }
-    }
-  )
+    },
+  ),
 );
 
 //google oauth strategy
@@ -64,12 +64,14 @@ passport.use(
   new GoogleToken(
     {
       clientID: process.env.GOOGLE_C_ID,
-      clientSecret: process.env.GOOGLE_SECRET
+      clientSecret: process.env.GOOGLE_SECRET,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
         //try to find a user by email
-        const existingUser = await User.findOne({ email: profile.emails[0].value });
+        const existingUser = await User.findOne({
+          email: profile.emails[0].value,
+        });
         if (existingUser) {
           //if user exists
           // if(existingUser.method !== 'google'){
@@ -81,14 +83,15 @@ passport.use(
           method: "google",
           email: profile.emails[0].value,
           google: {
-            id: profile.id
-          }
+            id: profile.id,
+          },
+          displayName: "",
         });
         await newUser.save();
         done(null, newUser);
       } catch (error) {
         done(error, false);
       }
-    }
-  )
+    },
+  ),
 );
