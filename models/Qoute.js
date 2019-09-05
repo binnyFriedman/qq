@@ -27,7 +27,12 @@ const QouteSchema = new Schema({
     ref: "User",
   },
 
-  Services: [{ type: Schema.Types.ObjectId, ref: "Service" }],
+  Services: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Service",
+    },
+  ],
 });
 
 // export the new Schema so we could modify it using Node.js

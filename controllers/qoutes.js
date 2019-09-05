@@ -4,7 +4,12 @@ module.exports = {
   getQoutes: async (req, res, next) => {
     //get email and password
     Qoute.find()
+      .populate("Services")
+      .populate("Sender")
+      .exec()
       .then(qouts => {
+        console.log(qouts);
+
         res.status(200).json({ Qoutes: qouts });
       })
       .catch(error => {
