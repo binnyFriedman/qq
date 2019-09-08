@@ -17,6 +17,7 @@ module.exports = {
       });
   },
   getSingleQoute: async (req, res, next) => {
+<<<<<<< HEAD
     const id = req.params.id;
     console.log(req.params);
 
@@ -34,6 +35,19 @@ module.exports = {
         }
         res.status(200).json({ quote: quote });
       });
+=======
+    const id = req.body.id;
+    if (!id)
+      return res
+        .status(403)
+        .json({ error: "req must contain the id of the qoute" });
+    Qoute.findById(id).then(qoute => {
+      if (!qoute) {
+        return res.status(404).json("Qoute does not exist");
+      }
+      res.status(200).json({ qoute: qoute });
+    });
+>>>>>>> 66e51450904b2a5e8ac508cb56ea3a30fcfbded7
   },
   deleteQoute: async (req, res, next) => {
     const id = req.body.id;
@@ -54,6 +68,7 @@ module.exports = {
   },
   createQoute: async (req, res, next) => {
     console.log(req.body);
+<<<<<<< HEAD
     current_datetime = new Date();
     const newQoute = new Qoute({
       created:
@@ -68,6 +83,16 @@ module.exports = {
       },
       Sender: req.user._id,
       Services: [...req.body.services]
+=======
+
+    const newQoute = new Qoute({
+      Reciever: {
+        name: req.body.Reciever.name,
+        email: req.body.Reciever.email,
+      },
+      Sender: req.user._id,
+      Services: [...req.body.services],
+>>>>>>> 66e51450904b2a5e8ac508cb56ea3a30fcfbded7
     });
     newQoute
       .save()
@@ -77,5 +102,9 @@ module.exports = {
       .catch(err => {
         res.status(500).json({ err });
       });
+<<<<<<< HEAD
   }
+=======
+  },
+>>>>>>> 66e51450904b2a5e8ac508cb56ea3a30fcfbded7
 };
