@@ -23,8 +23,8 @@ const config = {
     },
     onSuccess: () => {
       console.log("DB Successfully Connected!");
-    },
-  },
+    }
+  }
 };
 
 const app = vertex.app(config); // initialize app with config options
@@ -33,11 +33,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
-<<<<<<< HEAD
     "Origin, X-Requested-With, Content-Type, Accept"
-=======
-    "Origin, X-Requested-With, Content-Type, Accept",
->>>>>>> 66e51450904b2a5e8ac508cb56ea3a30fcfbded7
   );
   next();
 });

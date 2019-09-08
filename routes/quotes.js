@@ -11,11 +11,7 @@ const QoutsController = require("../controllers/qoutes");
 router.route("/").get(passportJWT, QoutsController.getQoutes);
 
 router.route("/single/:id").get(passportJWT, QoutsController.getSingleQoute);
-<<<<<<< HEAD
 router.route("/delete/:id").post(passportJWT, QoutsController.deleteQoute);
-=======
-router.route("/delete/:id").get(passportJWT, QoutsController.deleteQoute);
->>>>>>> 66e51450904b2a5e8ac508cb56ea3a30fcfbded7
 router.route("/create/").post(passportJWT, QoutsController.createQoute);
 
 module.exports = router;
