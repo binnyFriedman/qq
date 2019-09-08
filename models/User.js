@@ -7,46 +7,34 @@ const UserSchema = new Schema({
   method: {
     type: String,
     enum: ["local", "google", "facebook"],
-    required: true
+    required: true,
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+    trim: true,
+    lowercase: true,
   },
   local: {
-    email: {
-      type: String,
-      trim: true
-    },
     password: {
-      type: String
-    }
+      type: String,
+    },
   },
   google: {
     id: {
-      type: String
-    },
-    email: {
       type: String,
-      lowercase: true
-    }
+    },
   },
   facebook: {
     id: {
-      type: String
-    },
-    email: {
       type: String,
-      lowercase: true
-    }
-  }
-  // name: {
-  //   type: String,
-  //   trim: true,
-  //   default: "",
-  //   required: [true, "Name is required"]
-  // },
-  // dispalyName: {
-  //   type: String,
-  //   trim: true,
-  //   required: [true, "please provide your name in hebrew"]
-  // },
+    },
+  },
+
+  displayName: {
+    type: String,
+  },
 });
 
 UserSchema.pre("save", async function(next) {

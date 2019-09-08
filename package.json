@@ -17,6 +17,7 @@
     "content-type": "^1.0.4",
     "cookie": "0.3.1",
     "cookie-signature": "1.0.6",
+    "cors": "^2.8.5",
     "debug": "2.6.9",
     "depd": "^1.1.2",
     "encodeurl": "^1.0.2",
@@ -54,7 +55,7 @@
   },
   "devDependencies": {
     "express": "latest",
-    "nodemon": "^1.17.1",
+    "nodemon": "^1.19.2",
     "rimraf": "^2.6.2"
   },
   "deploy": [
