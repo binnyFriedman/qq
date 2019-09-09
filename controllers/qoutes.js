@@ -18,7 +18,6 @@ module.exports = {
   },
   getSingleQoute: async (req, res, next) => {
     const id = req.params.id;
-    console.log(req.params);
 
     if (!id)
       return res
@@ -36,10 +35,10 @@ module.exports = {
       });
   },
   deleteQoute: async (req, res, next) => {
-    const id = req.body.id;
+    const id = req.params.id;
     if (!id) {
       return res
-        .status(403)
+        .status(500)
         .json({ error: "req must contain the id of the qoute" });
     }
     Qoute.findByIdAndDelete(id)
@@ -49,7 +48,7 @@ module.exports = {
           .json({ message: "deleted Succesfully", res: res });
       })
       .catch(error => {
-        return res.status(402).json({ error: error });
+        return res.status(500).json({ error: error });
       });
   },
   createQoute: async (req, res, next) => {
@@ -62,10 +61,7 @@ module.exports = {
         (current_datetime.getMonth() + 1) +
         "/" +
         current_datetime.getFullYear(),
-      Reciever: {
-        name: req.body.Reciever.name,
-        email: req.body.Reciever.email
-      },
+      Reciever: req.body.Reciever,
       Sender: req.user._id,
       Services: [...req.body.services]
     });

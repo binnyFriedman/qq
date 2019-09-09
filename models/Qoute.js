@@ -20,9 +20,7 @@ const QouteSchema = new Schema({
       required: [true, "Email of reciever is required"]
     },
     logo: {
-      url: {
-        type: String
-      }
+      type: String
     }
   },
   Sender: {
