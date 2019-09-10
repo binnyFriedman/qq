@@ -13,7 +13,7 @@ module.exports = {
       .catch(err => {
         res.status(404).json({
           confirmation: "fail",
-          message: err.message,
+          message: err.message
         });
       });
   },
@@ -25,7 +25,19 @@ module.exports = {
       return res.status(404).json({ message: "No such service" });
     }
   },
-
+  updateService: async (req, res, next) => {
+    const id = req.params.id;
+    Service.findByIdAndUpdate(
+      id,
+      req.body.updateData,
+      (err => {
+        return res.status(500).json({ err });
+      },
+      response => {
+        res.status(200).json({ service: response });
+      })
+    );
+  },
   addService: async (req, res, next) => {
     const { formContainer, priceBlock } = req.body;
     findService(formContainer.serv_name).then(existService => {
@@ -47,22 +59,22 @@ module.exports = {
           .then(response => {
             res.json({
               succsess: true,
-              data: response,
+              data: response
             });
           })
           .catch(err => {
             res.json({
               succsess: false,
-              error: err.message,
+              error: err.message
             });
           });
       } else {
         res.json({
           succsess: false,
           message: "Service in this name already exists",
-          data: service,
+          data: service
         });
       }
     });
-  },
+  }
 };

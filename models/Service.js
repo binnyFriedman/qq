@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 //single service
 const ServiceSchema = new Schema({
+  default_Service: {
+    type: Boolean,
+    default: false
+  },
   name: {
     type: String,
     trim: true,
