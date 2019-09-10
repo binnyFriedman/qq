@@ -39,23 +39,38 @@ module.exports = {
     );
   },
   addService: async (req, res, next) => {
-    //create new service
-    console.log("req.body", req.body);
+    if (req.body.name) {
+      const service = await Service.findOne({ name: req.body.name });
+      if (service) {
+        if (!service.default_Service) {
+          Service.findByIdAndUpdate(
+            service._id,
+            req.body,
+            { new: true },
+            error => {
+              return res.status(500).json({ error });
+            },
+            service => {
+              return res.status(200).json({ service });
+            },
+          );
+        }
 
-    let service = new Service({ ...req.body });
-    service
-      .save()
-      .then(response => {
-        res.status(200).json({
-          service: response,
-        });
-      })
-      .catch(err => {
-        res.status(500).json({
-          succsess: false,
-          error: err.message,
-        });
-      });
+        let service = new Service({ ...req.body });
+        service
+          .save()
+          .then(response => {
+            res.status(200).json({
+              service: response,
+            });
+          })
+          .catch(err => {
+            res.status(500).json({
+              error: err,
+            });
+          });
+      }
+    }
   },
   updateService: async (req, res, next) => {
     const id = req.params.id;
