@@ -11,5 +11,6 @@ const passportJWT = passport.authenticate("jwt", { session: false });
 router.route("/").get(passportJWT, ServicesController.getServices);
 
 router.route("/add").post(passportJWT, ServicesController.addService);
+router.route("/update/:id").post(passportJWT, ServicesController.updateService);
 
 module.exports = router;

@@ -5,25 +5,26 @@ const Schema = mongoose.Schema;
 const ServiceSchema = new Schema({
   default_Service: {
     type: Boolean,
-    default: false
+    default: false,
   },
   name: {
     type: String,
     trim: true,
     default: "",
-    required: [true, "Name is required"]
+    unique: true,
+    required: [true, "Name is required"],
   },
   icon: {
-    type: String
+    type: String,
   },
   organic: {
     type: Boolean,
-    default: false
+    default: false,
   },
   campaign: {
     trim: true,
     type: Boolean,
-    default: false
+    default: false,
   },
 
   content: {
@@ -31,42 +32,42 @@ const ServiceSchema = new Schema({
       type: String,
       default: "",
       trim: true,
-      required: [true, "Content header is required"]
+      required: [true, "Content header is required"],
     },
     body: [
       {
         value: {
           type: String,
-          trim: true
-        }
-      }
+          trim: true,
+        },
+      },
     ],
     priceBlock: {
       notes: {
         trim: true,
         type: String,
-        default: ""
+        default: "",
       },
       header: {
         trim: true,
         type: String,
-        default: ""
+        default: "",
       },
       price: {
         type: Number,
-        default: 0
+        default: 0,
       },
       currency: {
         type: String,
         trim: true,
-        default: ""
+        default: "",
       },
       monthly: {
         type: Boolean,
-        default: true
-      }
-    }
-  }
+        default: true,
+      },
+    },
+  },
 });
 
 module.exports = mongoose.model("Service", ServiceSchema, "services");
