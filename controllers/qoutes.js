@@ -52,7 +52,6 @@ module.exports = {
       });
   },
   createQoute: async (req, res, next) => {
-    console.log(req.body);
     current_datetime = new Date();
     const newQoute = new Qoute({
       created:
@@ -63,7 +62,7 @@ module.exports = {
         current_datetime.getFullYear(),
       Reciever: req.body.Reciever,
       Sender: req.user._id,
-      Services: [...req.body.services]
+      Services: [...req.body.services],
     });
     newQoute
       .save()
@@ -73,5 +72,17 @@ module.exports = {
       .catch(err => {
         res.status(500).json({ err });
       });
-  }
+  },
+  updateQoute: async (req, res, next) => {
+    Qoute.findByIdAndUpdate(req.params.id, req.body, { new: true })
+      .populate("Services")
+      .populate("Sender")
+      .exec((error, responce) => {
+        if (error) {
+          console.log(error);
+          return res.status(500).json({ error: error.message });
+        }
+        res.status(200).json({ qoute: responce });
+      });
+  },
 };
