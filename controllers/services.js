@@ -13,7 +13,7 @@ module.exports = {
       .catch(err => {
         res.status(404).json({
           confirmation: "fail",
-          message: err.message
+          message: err.message,
         });
       });
   },
@@ -35,7 +35,7 @@ module.exports = {
       },
       response => {
         res.status(200).json({ service: response });
-      })
+      }),
     );
   },
   addService: async (req, res, next) => {
@@ -82,5 +82,5 @@ module.exports = {
       }
       res.status(200).json({ service: response });
     });
-  }
+  },
 };

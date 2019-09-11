@@ -1,29 +1,29 @@
-const Qoute = require("../models/Qoute");
+const Quote = require("../models/Quote");
 
 module.exports = {
-  getQoutes: async (req, res, next) => {
+  getQuotes: async (req, res, next) => {
     //get email and password
-    Qoute.find()
+    Quote.find()
       .populate("Services")
       .populate("Sender")
       .exec()
-      .then(qouts => {
-        console.log(qouts);
+      .then(quots => {
+        console.log(quots);
 
-        res.status(200).json({ Qoutes: qouts });
+        res.status(200).json({ Quotes: quots });
       })
       .catch(error => {
         res.status(402).json({ error: error });
       });
   },
-  getSingleQoute: async (req, res, next) => {
+  getSingleQuote: async (req, res, next) => {
     const id = req.params.id;
 
     if (!id)
       return res
         .status(403)
         .json({ error: "req must contain the id of the quote" });
-    Qoute.findById(id)
+    Quote.findById(id)
       .populate("Services")
       .populate("Sender")
       .exec()
@@ -34,14 +34,14 @@ module.exports = {
         res.status(200).json({ quote: quote });
       });
   },
-  deleteQoute: async (req, res, next) => {
+  deleteQuote: async (req, res, next) => {
     const id = req.params.id;
     if (!id) {
       return res
         .status(500)
-        .json({ error: "req must contain the id of the qoute" });
+        .json({ error: "req must contain the id of the quote" });
     }
-    Qoute.findByIdAndDelete(id)
+    Quote.findByIdAndDelete(id)
       .then(res => {
         return res
           .status(200)
@@ -51,9 +51,9 @@ module.exports = {
         return res.status(500).json({ error: error });
       });
   },
-  createQoute: async (req, res, next) => {
+  createQuote: async (req, res, next) => {
     current_datetime = new Date();
-    const newQoute = new Qoute({
+    const newQuote = new Quote({
       created:
         current_datetime.getDate() +
         "/" +
@@ -64,17 +64,17 @@ module.exports = {
       Sender: req.user._id,
       Services: [...req.body.services],
     });
-    newQoute
+    newQuote
       .save()
-      .then(qoute => {
-        res.status(200).json({ qoute });
+      .then(quote => {
+        res.status(200).json({ quote });
       })
       .catch(err => {
         res.status(500).json({ err });
       });
   },
-  updateQoute: async (req, res, next) => {
-    Qoute.findByIdAndUpdate(req.params.id, req.body, { new: true })
+  updateQuote: async (req, res, next) => {
+    Quote.findByIdAndUpdate(req.params.id, req.body, { new: true })
       .populate("Services")
       .populate("Sender")
       .exec((error, responce) => {
@@ -82,7 +82,7 @@ module.exports = {
           console.log(error);
           return res.status(500).json({ error: error.message });
         }
-        res.status(200).json({ qoute: responce });
+        res.status(200).json({ quote: responce });
       });
   },
 };

@@ -23,8 +23,8 @@ const config = {
     },
     onSuccess: () => {
       console.log("DB Successfully Connected!");
-    }
-  }
+    },
+  },
 };
 
 const app = vertex.app(config); // initialize app with config options
@@ -33,7 +33,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept",
   );
   next();
 });
@@ -42,13 +42,13 @@ app.use(function(req, res, next) {
 const index = require("./routes/index");
 const api = require("./routes/api");
 const users = require("./routes/users");
-const qoutes = require("./routes/quotes");
+const quotes = require("./routes/quotes");
 const services = require("./routes/services");
 
 // set routes
 app.use(morgan("dev"));
 app.use("/", index);
 app.use("/users", users);
-app.use("/qoutes", qoutes);
+app.use("/quotes", quotes);
 app.use("/services", services);
 module.exports = app;

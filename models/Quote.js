@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-//Qoute Stucture
-const QouteSchema = new Schema({
+//Quote Stucture
+const QuoteSchema = new Schema({
   created: {
     type: String,
   },
@@ -45,4 +45,4 @@ const QouteSchema = new Schema({
 });
 
 // export the new Schema so we could modify it using Node.js
-module.exports = mongoose.model("Qoute", QouteSchema, "qoutes");
+module.exports = mongoose.model("Quote", QuoteSchema, "qoutes");

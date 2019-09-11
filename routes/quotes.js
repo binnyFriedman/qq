@@ -8,11 +8,11 @@ const { validateBody, schemas } = require("../helpers/routeHelpers");
 const passportJWT = passport.authenticate("jwt", { session: false });
 const QoutsController = require("../controllers/qoutes");
 
-router.route("/").get(passportJWT, QoutsController.getQoutes);
+router.route("/").get(passportJWT, QoutsController.getQuotes);
 
-router.route("/single/:id").get(passportJWT, QoutsController.getSingleQoute);
-router.route("/delete/:id").post(passportJWT, QoutsController.deleteQoute);
-router.route("/update/:id").post(passportJWT, QoutsController.updateQoute);
-router.route("/create/").post(passportJWT, QoutsController.createQoute);
+router.route("/single/:id").get(passportJWT, QoutsController.getSingleQuote);
+router.route("/delete/:id").post(passportJWT, QoutsController.deleteQuote);
+router.route("/update/:id").post(passportJWT, QoutsController.updateQuote);
+router.route("/create/").post(passportJWT, QoutsController.createQuote);
 
 module.exports = router;
