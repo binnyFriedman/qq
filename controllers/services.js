@@ -13,7 +13,7 @@ module.exports = {
       .catch(err => {
         res.status(404).json({
           confirmation: "fail",
-          message: err.message,
+          message: err.message
         });
       });
   },
@@ -35,7 +35,7 @@ module.exports = {
       },
       response => {
         res.status(200).json({ service: response });
-      }),
+      })
     );
   },
   addService: async (req, res, next) => {
@@ -43,33 +43,33 @@ module.exports = {
       const service = await Service.findOne({ name: req.body.name });
       if (service) {
         if (!service.default_Service) {
-          Service.findByIdAndUpdate(
-            service._id,
-            req.body,
-            { new: true },
-            error => {
-              return res.status(500).json({ error });
-            },
-            service => {
+          Service.findByIdAndUpdate(service._id, req.body, { new: true })
+            .then(service => {
               return res.status(200).json({ service });
-            },
-          );
+            })
+            .catch(error => {
+              return res.status(500).json({ error });
+            });
         }
-
+      } else {
         let service = new Service({ ...req.body });
-        service
-          .save()
-          .then(response => {
-            res.status(200).json({
-              service: response,
-            });
-          })
-          .catch(err => {
-            res.status(500).json({
-              error: err,
-            });
-          });
+        const newsServ = await service.save();
+
+        console.log(newServ);
+
+        return res.status(200).json({ service: newServ });
       }
+
+      // .then(response => {
+      //   return res.status(200).json({
+      //     service: response
+      //   });
+      // })
+      // .catch(err => {
+      //   return res.status(500).json({
+      //     error: err
+      //   });
+      // });
     }
   },
   updateService: async (req, res, next) => {
@@ -82,5 +82,5 @@ module.exports = {
       }
       res.status(200).json({ service: response });
     });
-  },
+  }
 };
