@@ -13,7 +13,7 @@ module.exports = {
       .catch(err => {
         res.status(404).json({
           confirmation: "fail",
-          message: err.message,
+          message: err.message
         });
       });
   },
@@ -35,13 +35,15 @@ module.exports = {
       },
       response => {
         res.status(200).json({ service: response });
-      }),
+      })
     );
   },
   addService: async (req, res, next) => {
     if (req.body.name) {
       const service = await Service.findOne({ name: req.body.name });
       if (service) {
+        console.log(service);
+
         if (!service.default_Service) {
           Service.findByIdAndUpdate(service._id, req.body, { new: true })
             .then(service => {
@@ -52,7 +54,7 @@ module.exports = {
             });
         }
       } else {
-        let service = new Service({ ...req.body });
+        const nServ = new Service({ ...req.body });
         const newsServ = await service.save();
 
         console.log(newServ);
@@ -82,5 +84,5 @@ module.exports = {
       }
       res.status(200).json({ service: response });
     });
-  },
+  }
 };
