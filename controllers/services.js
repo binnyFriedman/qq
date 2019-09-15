@@ -6,13 +6,25 @@ async function findService(serviceName) {
 
 module.exports = {
   getServices: async (req, res, next) => {
-    if (req.params.options) {
-      const services = await Service.find({ default_Service: true });
-      if (!services) {
-        return res.status(500).json({ error });
-      } else {
-        console.log(services);
-        return res.status(200).json({ services });
+    if (req.query) {
+      if (req.query.default) {
+        const services = await Service.find({ default_Service: true });
+        if (!services) {
+          return res.status(500).json({ error });
+        } else {
+          return res.status(200).json({ services });
+        }
+      }
+      if (req.query.servIds) {
+        Service.find()
+          .where("_id")
+          .in(req.query.servIds)
+          .exec((error, services) => {
+            if (error) {
+              return res.status(500).json({ error });
+            }
+            return res.status(200).json({ services });
+          });
       }
     } else {
       Service.find()
@@ -22,7 +34,7 @@ module.exports = {
         .catch(err => {
           res.status(404).json({
             confirmation: "fail",
-            message: err.message
+            message: err.message,
           });
         });
     }
@@ -45,7 +57,7 @@ module.exports = {
       },
       response => {
         res.status(200).json({ service: response });
-      })
+      }),
     );
   },
   addService: async (req, res, next) => {
@@ -94,5 +106,5 @@ module.exports = {
       }
       res.status(200).json({ service: response });
     });
-  }
+  },
 };
