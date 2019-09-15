@@ -6,16 +6,26 @@ async function findService(serviceName) {
 
 module.exports = {
   getServices: async (req, res, next) => {
-    Service.find()
-      .then(services => {
-        res.status(200).json({ services });
-      })
-      .catch(err => {
-        res.status(404).json({
-          confirmation: "fail",
-          message: err.message
+    if (req.params.options) {
+      const services = await Service.find({ default_Service: true });
+      if (!services) {
+        return res.status(500).json({ error });
+      } else {
+        console.log(services);
+        return res.status(200).json({ services });
+      }
+    } else {
+      Service.find()
+        .then(services => {
+          res.status(200).json({ services });
+        })
+        .catch(err => {
+          res.status(404).json({
+            confirmation: "fail",
+            message: err.message
+          });
         });
-      });
+    }
   },
 
   getService: async (req, res, next) => {
@@ -55,7 +65,7 @@ module.exports = {
         }
       } else {
         const nServ = new Service({ ...req.body });
-        const newsServ = await service.save();
+        const newServ = await nServ.save();
 
         console.log(newServ);
 
