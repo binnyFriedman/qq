@@ -52,7 +52,13 @@ module.exports = {
       });
   },
   createQuote: async (req, res, next) => {
+    console.log(req.body);
+
+    let gotServices;
     current_datetime = new Date();
+    if (Array.isArray(req.body.Services)) {
+      gotServices = [...req.body.Services];
+    }
     const newQuote = new Quote({
       created:
         current_datetime.getDate() +
@@ -62,7 +68,8 @@ module.exports = {
         current_datetime.getFullYear(),
       Reciever: req.body.Reciever,
       Sender: req.user._id,
-      Services: [...req.body.services],
+      Services: gotServices,
+      PriceNotes: req.body.PriceNotes
     });
     newQuote
       .save()
@@ -84,5 +91,5 @@ module.exports = {
         }
         res.status(200).json({ quote: responce });
       });
-  },
+  }
 };
