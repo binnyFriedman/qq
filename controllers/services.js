@@ -6,38 +6,37 @@ async function findService(serviceName) {
 
 module.exports = {
   getServices: async (req, res, next) => {
-    if (req.query) {
-      if (req.query.default) {
-        const services = await Service.find({ default_Service: true });
-        if (!services) {
-          return res.status(500).json({ error });
-        } else {
-          return res.status(200).json({ services });
-        }
+    if (req.query.default) {
+      const services = await Service.find({ default_Service: true });
+      if (!services) {
+        return res.status(500).json({ error });
+      } else {
+        return res.status(200).json({ services });
       }
-      if (req.query.servIds) {
-        Service.find()
-          .where("_id")
-          .in(req.query.servIds)
-          .exec((error, services) => {
-            if (error) {
-              return res.status(500).json({ error });
-            }
-            return res.status(200).json({ services });
-          });
-      }
-    } else {
+    }
+    if (req.query.servIds) {
       Service.find()
-        .then(services => {
-          res.status(200).json({ services });
-        })
-        .catch(err => {
-          res.status(404).json({
-            confirmation: "fail",
-            message: err.message,
-          });
+        .where("_id")
+        .in(req.query.servIds)
+        .exec((error, services) => {
+          if (error) {
+            return res.status(500).json({ error });
+          }
+          return res.status(200).json({ services });
         });
     }
+    console.log("we should get here");
+
+    Service.find()
+      .then(services => {
+        res.status(200).json({ services });
+      })
+      .catch(err => {
+        res.status(404).json({
+          confirmation: "fail",
+          message: err.message
+        });
+      });
   },
 
   getService: async (req, res, next) => {
@@ -57,7 +56,7 @@ module.exports = {
       },
       response => {
         res.status(200).json({ service: response });
-      }),
+      })
     );
   },
   addService: async (req, res, next) => {
@@ -106,5 +105,5 @@ module.exports = {
       }
       res.status(200).json({ service: response });
     });
-  },
+  }
 };
