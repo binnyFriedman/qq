@@ -1,5 +1,5 @@
 const Quote = require("../models/Quote");
-
+const exportPDF = require("../helpers/pdfExport");
 module.exports = {
   getQuotes: async (req, res, next) => {
     //get email and password
@@ -69,7 +69,7 @@ module.exports = {
       Reciever: req.body.Reciever,
       Sender: req.user._id,
       Services: gotServices,
-      PriceNotes: req.body.PriceNotes
+      PriceNotes: req.body.PriceNotes,
     });
     newQuote
       .save()
@@ -91,5 +91,9 @@ module.exports = {
         }
         res.status(200).json({ quote: responce });
       });
-  }
+  },
+  exportQuote: async (req, res, next) => {
+    const result = await exportPDF.pdfExport("nekuda");
+    return res.status(200).json({ pdf: result });
+  },
 };

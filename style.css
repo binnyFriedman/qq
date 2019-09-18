@@ -1,0 +1,207 @@
+body,
+html {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.single-service {
+  text-align: right;
+  width: 800px;
+  line-height: 1.7;
+  padding-bottom: 69px;
+  margin: 0 auto;
+}
+
+.single-service-header {
+  font-size: 25px;
+  display: inline-block;
+  border-bottom: 7px solid #f9c355 !important;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 13px;
+}
+
+.single-service input li {
+  text-align: right;
+  width: 800px;
+  line-height: 1.7;
+  padding-bottom: 69px;
+  margin: 0 auto;
+}
+
+.single-service-body {
+  list-style-type: none;
+}
+
+.single-service ul li:before {
+  content: "\2022";
+  color: #f9c355;
+  font-weight: bold;
+  font-size: 21px;
+  display: inline-block;
+  width: 2em;
+  position: absolute;
+  right: -31px;
+  top: -4px;
+}
+
+.single-service-li {
+  position: relative;
+  padding-right: 10px;
+}
+
+.quoteBody {
+  direction: rtl;
+  width: 800px;
+  width: 80%;
+  line-height: 1.7;
+  margin: 0 auto;
+}
+
+.div {
+  font-family: "Varela Round";
+  font-size: 14pt;
+  color: #0d0d0d;
+  display: block;
+}
+
+.ul {
+  height: 0pt;
+  display: block;
+  position: absolute;
+  z-index: 0;
+}
+
+.li {
+  margin-right: 9.75pt;
+  text-align: right;
+  line-height: 115%;
+  padding-right: 8.25pt;
+  font-family: serif;
+  font-size: 10pt;
+  color: #ffc000;
+}
+
+.p {
+  margin-top: 0pt;
+  margin-bottom: 8pt;
+  line-height: 115%;
+  font-size: 14pt;
+}
+
+.span {
+  height: 0pt;
+  display: block;
+  position: absolute;
+  z-index: 0;
+}
+
+.priceTable {
+  width: 100%;
+  border: #fac030;
+  border-collapse: collapse;
+  border-width: 2px;
+  border-style: solid;
+  padding-bottom: 48px;
+  margin-bottom: 219px;
+}
+
+.firstRow {
+  background-color: #fac030;
+  color: white;
+  text-align: right;
+}
+
+th,
+td {
+  border: 1px solid #fac030;
+  text-align: center;
+}
+
+.price {
+  width: 50%;
+}
+
+.currency {
+  width: 24%;
+}
+
+.price-col {
+  width: 22%;
+}
+
+.single-service ul li:before {
+  content: "\2022";
+  color: #f9c355;
+  font-weight: bold;
+  font-size: 21px;
+  display: inline-block;
+  width: 2em;
+  position: absolute;
+  right: -31px;
+  top: -4px;
+}
+
+.single-service-li {
+  position: relative;
+  padding-right: 10px;
+}
+
+.single-service-body {
+  list-style-type: none;
+}
+
+.Main-background-image {
+  background-image: url(https://firebasestorage.googleapis.com/v0/b/quotes-1566472403403.appspot.com/o/images%2FcleanBackground.jpg?alt=media&token=fbf6031d-4b86-4410-9854-d0815bd40c63);
+
+  background-repeat: no-repeat;
+  width: 100%;
+  margin: 0 auto;
+  height: 1150px;
+  background-position: top center;
+  background-size: contain;
+  padding-top: 23%;
+  direction: rtl;
+}
+
+.inner-section {
+  position: inherit;
+  max-width: 530px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 29%;
+}
+
+.quote-sender {
+  position: relative;
+  /* right: -50px; */
+  text-align: right;
+  bottom: 0;
+  line-height: 0px;
+  color: #f9c355;
+  font-family: varela-round, sans-serif;
+  font-size: 23px;
+  padding-top: 29%;
+  font-weight: 200;
+}
+.date {
+  color: #f79028;
+  font-family: "Varela Round", sans-serif, Arial, Helvetica;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+.quote-reciever-name {
+  font-family: "Varela Round", sans-serif, Arial, Helvetica;
+  padding-top: 4%;
+  font-size: 27px;
+  font-weight: 600;
+}
+
+.qoute-greetings {
+  direction: rtl;
+  font-size: 26px;
+  font-weight: 500;
+  width: 294px;
+  margin: 0 auto;
+}
