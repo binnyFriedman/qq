@@ -41,12 +41,109 @@ makeRequest = (endpoint, payload) => {
   });
 };
 
+renderQuoteToHtml = quote => {
+  var baseHtml =
+    '<html style"margin: 0; padding: 0;width: 100%;"> <head><meta charset="UTF-8"> <link rel="stylesheet" href="https://firebasestorage.googleapis.com/v0/b/quotes-1566472403403.appspot.com/o/css%2Fstyle.css?alt=media&token=3d37f165-76b0-4cd2-9474-549ff762ec27"/></head><body>';
+
+  baseHtml += titelBildRender(quote.Reciever, quote.Sender, quote.created);
+  baseHtml += '<div class="quoteBody">';
+  baseHtml += servicesRender(quote.Services);
+  baseHtml += priceTableRender(quote.Services, quote.PriceNotes);
+  baseHtml += "</div></body></html>";
+
+  return baseHtml;
+};
+
+titelBildRender = (user, sender, created) => {
+  var base =
+    '<body> <div class="Main-background-image"> <div class="inner-section"> <h2 class="date">' +
+    created +
+    '</h2><h2 class="quote-reciever-name"> לכבוד:' +
+    user.name +
+    '</h2><div class="App-logo" style="height:200px">';
+  if (user.logo) {
+    base += "<img src=" + user.logo + ' alt="logo" height="200" />';
+  }
+  base +=
+    '</div><h3 class="qoute-greetings">מצורפת הצעת מחיר, נשמח לעמוד לרשותכם ולספק מענה לכל שאלה. נקודה.</h3> <div class="quote-sender"><h5>בברכה,</h5><h5>' +
+    sender.displayName +
+    "</h5><h5>" +
+    sender.email +
+    "</h5></div></div></div>";
+
+  return base;
+};
+
+servicesRender = services => {
+  var base = "";
+  services.map(service => {
+    base +=
+      '<div class="single-service"><h2 class="single-service-header">' +
+      service.content.header +
+      '</h2><ul class="single-service-body">';
+    if (service.content.body.length) {
+      service.content.body.map(line => {
+        base += '<li class="single-service-li">' + line.value + "</li>";
+      });
+    }
+    base += "</ul></div>";
+  });
+  return base;
+};
+
+priceTableRender = (services, priceNotes) => {
+  var base =
+    '<div class="priceBlock"><div class="single-service"><h2 class="single-service-header">תמחור והערות</h2><ul class="single-service-body">';
+
+  if (priceNotes) {
+    Object.entries(priceNotes).map(pair => {
+      const value = pair[1];
+      if (Array.isArray(pair[1])) return;
+      base += '<li class="single-service-li">' + value + "</li>";
+    });
+  }
+
+  services.map(service => {
+    if (!service.content.priceBlock.notes) {
+      return;
+    }
+    base +=
+      ' <li class="single-service-li">' +
+      service.content.priceBlock.notes +
+      "</li>";
+  });
+
+  base += "</div>";
+  base +=
+    '<table class="priceTable"><tbody><tr class="firstRow"> <th key="service">שירות</th><th key="price">עלות</th><th key="routine">מחזור</th></tr>';
+
+  services.map(service => {
+    let priceBlock = service.content.priceBlock;
+    var month = priceBlock.monthly ? "חודשי" : "חד פעמי";
+
+    base += '<tr class="priceTable"><td>' + priceBlock.header + "</td>";
+
+    base += "<td>" + priceBlock.price + priceBlock.currency + " </td>";
+    base += "<td>" + month + "</td></tr>";
+  });
+
+  if (priceNotes && priceNotes.specialNotes) {
+    specialNotes.map((note, index) => {
+      var nMonth = note.monthly ? "חודשי" : "חד פעמי";
+      base += '<tr class="priceTable"><td>' + note.header + "</td>";
+      base += "<td>" + note.price + note.currency + " </td>";
+      base += "<td>" + nMonth + "</td></tr>";
+    });
+  }
+
+  base += "</tbody></table></div>";
+
+  return base;
+};
+
 module.exports = {
-  pdfExport: fileName => {
-    return headlessChromeFromHtml(
-      '<html style"margin: 0; padding: 0;width: 100%;"><head><meta charset="UTF-8"> <link rel="stylesheet" href="https://firebasestorage.googleapis.com/v0/b/quotes-1566472403403.appspot.com/o/css%2Fstyle.css?alt=media&token=3d37f165-76b0-4cd2-9474-549ff762ec27"/> </head> <body> <div class="Main-background-image"> <div class="inner-section"> <h2 class="date">16/9/2019</h2> <h2 class="quote-reciever-name"> לכבוד: mumiii </h2> <div class="App-logo" style="height:200px"><div> </div></div><h3 class="qoute-greetings">מצורפת הצעת מחיר, נשמח לעמוד לרשותכם ולספק מענה לכל שאלה. נקודה.</h3> <div class="quote-sender"><h5>בברכה,</h5><h5>ביני פרידמן</h5><h5>binny@nekuda.co.il</h5> </div></div></div><div class="quoteBody"><div> <div class="single-service"><h2 class="single-service-header">header test</h2> <ul class="single-service-body"><li>line 1</li><li>line 2</li></ul></div></div><div> <div class="single-service"> <h2 class="single-service-header">גוגmop,oל ואימו</h2> <ul class="single-service-body"><li>3f3f33e 1everver</li><li>liop,ne 2ebebef3f3f</li></ul> </div></div><div> <div class="single-service"><h2 class="single-service-header">header t</h2> <ul class="single-service-body"><li>line 1</li><li>line 2</li></ul></div></div><div><div class="single-service"><h2 class="single-service-header">גוגmop,oל ואימו</h2> <ul class="single-service-body"><li>3f3f33e 1everver</li><li>liop,ne 2ebebef3f3f</li><li>ggggggg</li></ul></div></div><div><div class="priceBlock"><h2 class="single-service-header">תמחור והערות</h2> <ul class="single-service-body"><li></li><li>noteas</li><li></li><li>noteas</li></ul></div><table class="priceTable"><tbody><tr class="firstRow"><th>שירות</th><th>עלות</th><th>מחזור</th></tr><tr class="priceTable"><td></td><td>1500 ₪ </td><td>חודשי</td></tr><tr class="priceTable"><td>headline</td><td>1500 ₪ </td><td>חודשי</td></tr><tr class="priceTable"><td>קוניצ&#x27;וואה</td><td>1500 ₪ </td><td>חודשי</td></tr><tr class="priceTable"><td>headline</td><td>1500 ₪ </td><td>חודשי</td></tr></tbody></table></div></div></body> </html>',
-      "nekuda.pdf",
-    )
+  pdfExport: quote => {
+    return headlessChromeFromHtml(renderQuoteToHtml(quote), "nekuda.pdf")
       .then(function(result) {
         console.log(result);
 

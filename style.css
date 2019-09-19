@@ -1,9 +1,16 @@
+@import url("https://fonts.googleapis.com/css?family=Varela+Round&display=swap");
+
 body,
 html {
   width: 100%;
   max-width: 100%;
   margin: 0;
   padding: 0;
+  font-family: "Varela Round", sans-serif;
+}
+h2 {
+  margin-block-end: -0.17rem;
+  margin-bottom: 0;
 }
 .single-service {
   text-align: right;
@@ -180,8 +187,8 @@ td {
   line-height: 0px;
   color: #f9c355;
   font-family: varela-round, sans-serif;
-  font-size: 23px;
-  padding-top: 29%;
+  font-size: 25px;
+  padding-top: 12%;
   font-weight: 200;
 }
 .date {

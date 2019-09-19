@@ -93,7 +93,17 @@ module.exports = {
       });
   },
   exportQuote: async (req, res, next) => {
-    const result = await exportPDF.pdfExport("nekuda");
-    return res.status(200).json({ pdf: result });
+    const quote = await Quote.findById(req.params.id)
+      .populate("Services")
+      .populate("Sender")
+      .exec();
+    if (quote) {
+      const result = await exportPDF.pdfExport(quote);
+      if (result) {
+        return res.status(200).json({ pdf: result });
+      }
+      return res.status(500).json({ error: "no result " });
+    }
+    res.status(404).json({ message: "quote not found" });
   },
 };
