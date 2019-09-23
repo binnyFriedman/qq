@@ -52,25 +52,26 @@ module.exports = {
       });
   },
   createQuote: async (req, res, next) => {
-    console.log(req.body);
-
     let gotServices;
     current_datetime = new Date();
+    let created =
+      current_datetime.getDate() +
+      "/" +
+      (current_datetime.getMonth() + 1) +
+      "/" +
+      current_datetime.getFullYear();
     if (Array.isArray(req.body.Services)) {
       gotServices = [...req.body.Services];
     }
+
     const newQuote = new Quote({
-      created:
-        current_datetime.getDate() +
-        "/" +
-        (current_datetime.getMonth() + 1) +
-        "/" +
-        current_datetime.getFullYear(),
-      Reciever: req.body.Reciever,
+      created: created,
+      Reciever: req.body.Reciever || {},
       Sender: req.user._id,
       Services: gotServices,
       PriceNotes: req.body.PriceNotes,
     });
+
     newQuote
       .save()
       .then(quote => {
@@ -100,7 +101,7 @@ module.exports = {
     if (quote) {
       const result = await exportPDF.pdfExport(quote);
       if (result) {
-        return res.status(200).json({ pdf: result });
+        return res.status(200).json({ pdf: result.pdf });
       }
       return res.status(500).json({ error: "no result " });
     }

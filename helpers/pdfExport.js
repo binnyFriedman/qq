@@ -44,19 +44,19 @@ makeRequest = (endpoint, payload) => {
 renderQuoteToHtml = quote => {
   var baseHtml =
     '<html style"margin: 0; padding: 0;width: 100%;"> <head><meta charset="UTF-8"> <link rel="stylesheet" href="https://firebasestorage.googleapis.com/v0/b/quotes-1566472403403.appspot.com/o/css%2Fstyle.css?alt=media&token=3d37f165-76b0-4cd2-9474-549ff762ec27"/></head><body>';
-
+  baseHtml += '<div style="position: relative;">';
   baseHtml += titelBildRender(quote.Reciever, quote.Sender, quote.created);
   baseHtml += '<div class="quoteBody">';
   baseHtml += servicesRender(quote.Services);
   baseHtml += priceTableRender(quote.Services, quote.PriceNotes);
-  baseHtml += "</div></body></html>";
+  baseHtml += "</div></div></body></html>";
 
   return baseHtml;
 };
 
 titelBildRender = (user, sender, created) => {
   var base =
-    '<body> <div class="Main-background-image"> <div class="inner-section"> <h2 class="date">' +
+    '<div class="Main-background-image"> <div class="inner-section"> <h2 class="date">' +
     created +
     '</h2><h2 class="quote-reciever-name"> לכבוד:' +
     user.name +
@@ -145,8 +145,6 @@ module.exports = {
   pdfExport: quote => {
     return headlessChromeFromHtml(renderQuoteToHtml(quote), "nekuda.pdf")
       .then(function(result) {
-        console.log(result);
-
         return result;
       })
       .catch(error => {

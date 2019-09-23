@@ -14,25 +14,24 @@ h2 {
 }
 .single-service {
   text-align: right;
-  width: 800px;
-  line-height: 1.7;
+  width: 100%;
+  line-height: normal;
   padding-bottom: 69px;
   margin: 0 auto;
 }
 
 .single-service-header {
-  font-size: 25px;
+  font-size: 22px;
   display: inline-block;
   border-bottom: 7px solid #f9c355 !important;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 13px;
 }
 
-.single-service input li {
+.single-service li {
   text-align: right;
-  width: 800px;
-  line-height: 1.7;
-  padding-bottom: 69px;
+  width: 100%;
+  line-height: normal;
   margin: 0 auto;
 }
 
@@ -52,55 +51,11 @@ h2 {
   top: -4px;
 }
 
-.single-service-li {
-  position: relative;
-  padding-right: 10px;
-}
-
 .quoteBody {
   direction: rtl;
-  width: 800px;
   width: 80%;
-  line-height: 1.7;
+  line-height: normal;
   margin: 0 auto;
-}
-
-.div {
-  font-family: "Varela Round";
-  font-size: 14pt;
-  color: #0d0d0d;
-  display: block;
-}
-
-.ul {
-  height: 0pt;
-  display: block;
-  position: absolute;
-  z-index: 0;
-}
-
-.li {
-  margin-right: 9.75pt;
-  text-align: right;
-  line-height: 115%;
-  padding-right: 8.25pt;
-  font-family: serif;
-  font-size: 10pt;
-  color: #ffc000;
-}
-
-.p {
-  margin-top: 0pt;
-  margin-bottom: 8pt;
-  line-height: 115%;
-  font-size: 14pt;
-}
-
-.span {
-  height: 0pt;
-  display: block;
-  position: absolute;
-  z-index: 0;
 }
 
 .priceTable {
