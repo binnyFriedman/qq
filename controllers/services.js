@@ -25,7 +25,6 @@ module.exports = {
           return res.status(200).json({ services });
         });
     }
-    console.log("we should get here");
 
     Service.find()
       .then(services => {
