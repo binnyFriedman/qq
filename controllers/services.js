@@ -22,20 +22,22 @@ module.exports = {
           if (error) {
             return res.status(500).json({ error });
           }
+          console.log(services);
+
           return res.status(200).json({ services });
         });
-    }
-
-    Service.find()
-      .then(services => {
-        res.status(200).json({ services });
-      })
-      .catch(err => {
-        res.status(404).json({
-          confirmation: "fail",
-          message: err.message,
+    } else {
+      Service.find()
+        .then(services => {
+          return res.status(200).json({ services });
+        })
+        .catch(err => {
+          return res.status(404).json({
+            confirmation: "fail",
+            message: err.message,
+          });
         });
-      });
+    }
   },
 
   getService: async (req, res, next) => {
