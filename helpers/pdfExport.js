@@ -127,7 +127,7 @@ priceTableRender = (services, priceNotes) => {
     base += "<td>" + month + "</td></tr>";
   });
 
-  if (priceNotes && priceNotes.specialNotes) {
+  if (priceNotes && priceNotes.specialNotes && priceNotes.specialNotes.length) {
     specialNotes.map((note, index) => {
       var nMonth = note.monthly ? "חודשי" : "חד פעמי";
       base += '<tr class="priceTable"><td>' + note.header + "</td>";
