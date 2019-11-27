@@ -57,14 +57,12 @@ module.exports = {
   },
 
   googleOauth: async (req, res, next) => {
+    console.log("got to return statement");
+
     const token = signToken(req.user);
     res.status(200).json({ token });
   },
-  secret: async (req, res, next) => {
-    //yet to come
-    console.log("hit secret");
-    res.json({ message: "אוי ווווווובוייייי" });
-  },
+ 
   getOne: async (req, res, next) => {
     findUser(req.body.email).then(user => {
       if (!user) {

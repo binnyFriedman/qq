@@ -73,12 +73,12 @@ passport.use(
           email: profile.emails[0].value,
         });
         if (existingUser) {
-          //if user exists
-          // if(existingUser.method !== 'google'){
+          console.log("got here");
 
-          // }
           return done(null, existingUser);
         }
+        console.log("got to new user");
+
         const newUser = new User({
           method: "google",
           email: profile.emails[0].value,
